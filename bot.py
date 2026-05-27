@@ -54,4 +54,6 @@ async def ver(ctx, nome):
     else:
         await ctx.send("❌ Build não encontrada.")
 
-bot.run("TOKEN")
+import os
+
+bot.run(os.getenv("TOKEN"))
