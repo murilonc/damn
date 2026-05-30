@@ -70,4 +70,4 @@ async def ver(ctx, nome):
     else:
         await ctx.send("❌ Build não encontrada.")
 
-bot.run("MTUwOTA3MjkwNzg0OTA0Mzk4OQ.GAkqXe.50nyRkSUjEif_PY9flEqZYLZlvzXkdj37NbFB8")
+bot.run("MTUwOTA3MjkwNzg0OTA0Mzk4OQ.GhAHyF.WQEospfEaOxUgFLcM1Y4TtpLnH6KPPPAls9OEQ")
