@@ -21,7 +21,10 @@ async def on_ready():
 @bot.command()
 async def criar(ctx, nome):
 
-    await ctx.message.delete()  # apaga o comando
+    try:
+        await ctx.message.delete()
+    except:
+        pass
 
     builds[nome] = "Build vazia."
 
@@ -36,7 +39,11 @@ async def criar(ctx, nome):
 @bot.command()
 async def editar(ctx, nome, *, conteudo):
 
-        await ctx.message.delete()  # apaga o comando
+    # Apaga a mensagem do comando
+    try:
+        await ctx.message.delete()
+    except:
+        pass
 
     builds[nome] = conteudo
 
