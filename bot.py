@@ -11,6 +11,7 @@ bot = commands.Bot(command_prefix="!", intents=intents)
 
 # Banco simples
 builds = {}
+mensagens_build = {}
 
 @bot.event
 async def on_ready():
@@ -19,8 +20,14 @@ async def on_ready():
 # Criar build
 @bot.command()
 async def criar(ctx, nome):
+
     builds[nome] = "Build vazia."
-    await ctx.send(f'✅ Build "{nome}" criada.')
+
+    nova_msg = await ctx.send(
+        f'📌 BUILD: {nome}\n```Build vazia.```'
+    )
+
+    mensagens_build[nome] = nova_msg.id
 
 
 # Editar build
@@ -29,8 +36,15 @@ async def editar(ctx, nome, *, conteudo):
 
     builds[nome] = conteudo
 
-    # Apaga mensagens antigas do canal
-    await ctx.channel.purge(limit=100)
+    # Apaga a mensagem antiga desta build
+    if nome in mensagens_build:
+        try:
+            msg_antiga = await ctx.channel.fetch_message(
+                mensagens_build[nome]
+            )
+            await msg_antiga.delete()
+        except:
+            pass
 
     txt = io.StringIO(conteudo)
 
@@ -39,10 +53,12 @@ async def editar(ctx, nome, *, conteudo):
         filename=f"{nome}.txt"
     )
 
-    await ctx.send(
-        f'✅ Build "{nome}" atualizada.',
+    nova_msg = await ctx.send(
+        f'📌 BUILD: {nome}',
         file=arquivo
     )
+
+    mensagens_build[nome] = nova_msg.id
 
 
 # Ver build
@@ -54,6 +70,4 @@ async def ver(ctx, nome):
     else:
         await ctx.send("❌ Build não encontrada.")
 
-import os
-
-bot.run(os.getenv("TOKEN"))
+bot.run("MTUwOTA3MjkwNzg0OTA0Mzk4OQ.GAkqXe.50nyRkSUjEif_PY9flEqZYLZlvzXkdj37NbFB8")
