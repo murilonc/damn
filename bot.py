@@ -21,6 +21,8 @@ async def on_ready():
 @bot.command()
 async def criar(ctx, nome):
 
+    await ctx.message.delete()  # apaga o comando
+
     builds[nome] = "Build vazia."
 
     nova_msg = await ctx.send(
@@ -33,6 +35,8 @@ async def criar(ctx, nome):
 # Editar build
 @bot.command()
 async def editar(ctx, nome, *, conteudo):
+
+        await ctx.message.delete()  # apaga o comando
 
     builds[nome] = conteudo
 
